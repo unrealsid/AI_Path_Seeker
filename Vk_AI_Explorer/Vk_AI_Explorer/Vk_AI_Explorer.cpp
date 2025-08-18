@@ -1,12 +1,14 @@
 ﻿// Pursuit_Protocol.cpp : Defines the entry point for the application.
 //
 
-#include "Pursuit_Protocol.h"
+#include "Vk_AI_Explorer.h"
+
+#include <iostream>
 
 using namespace std;
 
 int main()
 {
-	cout << "Hello CMake." << endl;
+	std::cout << "Hello CMake." << endl;
 	return 0;
 }

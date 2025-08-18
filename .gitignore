@@ -39,3 +39,5 @@
 
 # debug information files
 *.dwo
+Vk_AI_Explorer/ext/
+Vk_AI_Explorer/out/
