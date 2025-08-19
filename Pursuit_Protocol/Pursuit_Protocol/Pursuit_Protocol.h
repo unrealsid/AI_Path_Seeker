@@ -4,5 +4,6 @@
 #pragma once
 
 #include <iostream>
+#include "AStar_Pathfinding.h"
 
 // TODO: Reference additional headers your program requires here.

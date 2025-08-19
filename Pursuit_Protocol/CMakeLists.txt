@@ -49,7 +49,7 @@ file(GLOB_RECURSE SRC_FILES
 # ------------------------------------------------------
 # 1. Build the main executable FIRST
 # ------------------------------------------------------
-add_executable(PursuitProtocol ${SRC_FILES}) # Executable name is based on project name
+add_executable(PursuitProtocol ${SRC_FILES} "Pursuit_Protocol/AStar_Pathfinding.cpp" "Pursuit_Protocol/shaders/AStar_Pathfinding.h") # Executable name is based on project name
 
 # Include the generated file in the project
 include_directories(${CMAKE_BINARY_DIR})
@@ -93,7 +93,7 @@ if (NOT "${VULKAN_SDK_PATH}" STREQUAL "")
     if(WIN32)
         # For Windows, using the standard library location pattern in Vulkan SDK
         target_link_libraries(PursuitProtocol
-            "${VULKAN_SDK_PATH}/Lib/shaderc_combinedd.lib"
+            "${VULKAN_SDK_PATH}/Lib/shaderc_combined.lib"
         )
     else()
         # For Linux/macOS, lib paths may differ
@@ -123,12 +123,13 @@ file(GLOB IMGUI_SOURCES
 
 message(STATUS "Current source files in imgui: ${IMGUI_SOURCES}")
 
-add_library(imgui STATIC ${IMGUI_SOURCES})
+add_library(imgui STATIC ${IMGUI_SOURCES} "Pursuit_Protocol/AStar_Pathfinding.cpp" "Pursuit_Protocol/shaders/AStar_Pathfinding.h")
 
 # Add ImGui include paths (both main and backends)
 target_include_directories(imgui PUBLIC
     ${IMGUI_DIR}
     ${IMGUI_DIR}/backends
+    ${EXT_DIR}/glfw-3.4.bin.WIN64/include   # <-- GLFW include folder
 )
 
 # Vulkan SDK includes
@@ -172,7 +173,7 @@ file(GLOB VK_BOOTSTRAP_SRC_FILES
 # Add the found source files directly to the executable target
 if(VK_BOOTSTRAP_SRC_FILES) # Check if any files were found
     #target_sources(PursuitProtocol PUBLIC ${VK_BOOTSTRAP_SRC_FILES})
-	add_library(vkBootstrapper STATIC ${VK_BOOTSTRAP_SRC_FILES})
+	add_library(vkBootstrapper STATIC ${VK_BOOTSTRAP_SRC_FILES} "Pursuit_Protocol/AStar_Pathfinding.cpp" "Pursuit_Protocol/shaders/AStar_Pathfinding.h")
 
     if (NOT "${VULKAN_SDK_PATH}" STREQUAL "")
     target_include_directories(vkBootstrapper PUBLIC
@@ -202,7 +203,7 @@ message(STATUS "Tinyobjloader source files found: ${TINYOBJLOADER_SRC_FILES}")
 
 # Add tiny_obj_loader.cc to a static library
 if(TINYOBJLOADER_SRC_FILES)
-    add_library(tinyobjloader STATIC ${TINYOBJLOADER_SRC_FILES})
+    add_library(tinyobjloader STATIC ${TINYOBJLOADER_SRC_FILES} "Pursuit_Protocol/AStar_Pathfinding.cpp" "Pursuit_Protocol/shaders/AStar_Pathfinding.h")
 
     # Define TINYOBJLOADER_IMPLEMENTATION when compiling the tinyobjloader library
     target_compile_definitions(tinyobjloader PRIVATE TINYOBJLOADER_IMPLEMENTATION)
