@@ -15,6 +15,6 @@ namespace ecs::core
         }
         
     private:
-        static ComponentTypeID next_component_id;
+        inline static ComponentTypeID next_component_id = 0;
     };
 }

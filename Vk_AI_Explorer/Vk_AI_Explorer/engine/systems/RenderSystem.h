@@ -3,7 +3,7 @@
 #include "../interfaces/ISystem.h"
 #include "../Components/Renderable.h"
 #include "../Components/Material.h"
-#include "../Components/Transform.h"
+#include "../Components/TransformComponent.h"
 #include "../Components/DrawBatch.h"
 #include "../structs/EngineContext.h"
 #include <unordered_map>

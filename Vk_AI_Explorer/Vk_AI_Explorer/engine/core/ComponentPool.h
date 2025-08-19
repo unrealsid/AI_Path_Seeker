@@ -4,17 +4,10 @@
 #include <vector>
 #include <unordered_map>
 #include <memory>
+#include "../interfaces/IComponentPool.h"
 
 namespace ecs::core
 {
-    class IComponentPool
-    {
-    public:
-        virtual ~IComponentPool() = default;
-        virtual void remove_component(EntityID entity) = 0;
-        virtual bool has_component(EntityID entity) const = 0;
-    };
-
     template<typename T>
     class ComponentPool : public IComponentPool
     {
@@ -30,11 +23,6 @@ namespace ecs::core
         T& get_component(EntityID entity)
         {
             return components[entity_to_index[entity]];
-        }
-
-        const T& get_component(EntityID entity) const
-        {
-            return components[entity_to_index.at(entity)];
         }
 
         void remove_component(EntityID entity) override

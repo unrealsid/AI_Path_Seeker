@@ -2,7 +2,7 @@
 
 #include "../interfaces/ISystem.h"
 #include "../Components/GPUTransform.h"
-#include "../Components/Transform.h"
+#include "../Components/TransformComponent.h"
 #include "../structs/EngineContext.h"
 
 namespace systems
