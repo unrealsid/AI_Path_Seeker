@@ -42,6 +42,7 @@ set(SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/Vk_AI_Explorer) # Updated source directo
 file(GLOB_RECURSE SRC_FILES
     "${SRC_DIR}/*.cpp"
     "${SRC_DIR}/*.h"
+	"${SRC_DIR}/*.hpp"
 	"${SRC_DIR}/*.glsl"
 	"${SRC_DIR}/*.png"
 )
