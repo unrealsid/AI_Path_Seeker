@@ -1,0 +1,101 @@
+#pragma once
+#include <memory>
+#include <unordered_map>
+#include <vector>
+
+#include "engine/core/structs/Vk_SceneData.h"
+#include "engine/core/structs/Vk_DepthStencilImage.h"
+#include <vulkan/vulkan.h>
+#include "VkBootstrapDispatch.h"
+#include "camera/Camera.h"
+
+struct EngineContext;
+
+namespace vulkan
+{
+    class SwapchainManager;
+}
+
+namespace vkb
+{
+    struct DispatchTable;
+}
+
+namespace vulkan
+{
+    class DeviceManager;
+}
+
+namespace core
+{
+    constexpr int MAX_FRAMES_IN_FLIGHT = 2;
+    
+    class Renderer
+    {
+    public:
+        Renderer(EngineContext& engine_context);
+
+        bool should_update_camera;
+
+        void init();
+        
+        bool draw_frame();
+
+        bool init_camera();
+        void update_camera(float pos_delta_x, float pos_delta_y);
+        
+        bool create_sync_objects();
+        bool create_command_buffers();
+
+        Vk_SceneData get_scene_data() const { return scene_data; }
+        GPU_SceneBuffer get_gpu_scene_buffer() const { return gpu_scene_buffer; }
+
+        [[nodiscard]] std::vector<VkSemaphore> get_available_semaphores() const { return available_semaphores; }
+        [[nodiscard]] std::vector<VkSemaphore> getFinishedSemaphores() const { return finished_semaphores; }
+        [[nodiscard]] std::vector<VkFence> getInFlightFences() const { return in_flight_fences; }
+        [[nodiscard]] std::vector<VkFence> getImageInFlight() const { return image_in_flight; }
+        [[nodiscard]] size_t get_current_frame() const { return current_frame; }
+        
+        [[nodiscard]] std::vector<VkCommandBuffer> get_command_buffers() const { return command_buffers; }
+        [[nodiscard]] VkCommandPool get_command_pool() const { return command_pool; }
+
+        OrbitCamera get_camera() const { return orbit_camera; }
+
+        bool create_command_pool();
+
+        bool recreate_depth_stencil_image();
+
+        void destroy_command_pool();
+
+        void cleanup();
+    
+    private:
+        Vk_SceneData scene_data;
+        GPU_SceneBuffer gpu_scene_buffer;
+
+        EngineContext& engine_context;
+        
+        DepthStencilImage depth_stencil_image;
+
+        //The camera
+        OrbitCamera orbit_camera;
+
+        std::vector<VkSemaphore> available_semaphores;
+        std::vector<VkSemaphore> finished_semaphores;
+        VkSemaphore object_picker_done_semaphore;
+        
+        std::vector<VkFence> in_flight_fences;
+        std::vector<VkFence> image_in_flight;
+        
+        size_t current_frame = 0;
+
+        std::vector<VkCommandBuffer> command_buffers;
+        VkCommandPool command_pool;
+
+        vkb::DispatchTable dispatch_table;
+        
+        vulkan::DeviceManager* device_manager;
+        vulkan::SwapchainManager* swapchain_manager;
+
+    };
+}
