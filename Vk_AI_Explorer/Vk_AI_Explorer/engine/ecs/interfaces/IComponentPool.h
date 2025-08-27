@@ -1,8 +1,8 @@
 ﻿#pragma once
 
-#include "../core/ECSTypes.h"
+#include "engine/ecs/core/ECSTypes.h"
 
-namespace ecs::interface
+namespace ecs::interfaces
 {
     class IComponentPool
     {

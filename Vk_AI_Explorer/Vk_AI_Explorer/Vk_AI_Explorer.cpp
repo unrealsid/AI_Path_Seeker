@@ -21,19 +21,19 @@ int main()
 
     // --- Component Registration ---
     // All components must be registered before use
-    world.register_component<ecs::component::TransformComponent>();
-    world.register_component<ecs::component::VelocityComponent>();
+    world.register_component<ecs::components::TransformComponent>();
+    world.register_component<ecs::components::VelocityComponent>();
 
     // --- System Registration ---
     // Create and register the MovementSystem
-    world.register_system<ecs::system::MovementSystem>();
+    world.register_system<ecs::systems::MovementSystem>();
 
     // Define the signature for the MovementSystem
     // It requires both a Transform and a Velocity component
     ecs::core::Signature movement_signature;
-    movement_signature.set(world.get_component_type_id<ecs::component::TransformComponent>());
-    movement_signature.set(world.get_component_type_id<ecs::component::VelocityComponent>());
-    world.set_system_signature<ecs::system::MovementSystem>(movement_signature);
+    movement_signature.set(world.get_component_type_id<ecs::components::TransformComponent>());
+    movement_signature.set(world.get_component_type_id<ecs::components::VelocityComponent>());
+    world.set_system_signature<ecs::systems::MovementSystem>(movement_signature);
 
     // --- Entity Creation ---
     // Create 500 entities, each with a random velocity
@@ -54,14 +54,14 @@ int main()
         entities.push_back(new_entity);
 
         // Add a Transform component with an initial position
-        world.add_component<ecs::component::TransformComponent>(new_entity,
+        world.add_component<ecs::components::TransformComponent>(new_entity,
             glm::vec3(0.0f, 0.0f, 0.0f),
             glm::vec3(0.0f, 0.0f, 0.0f),
             glm::vec3(1.0f, 1.0f, 1.0f)
         );
 
         // Add a Velocity component with a random direction
-        world.add_component<ecs::component::VelocityComponent>(new_entity,
+        world.add_component<ecs::components::VelocityComponent>(new_entity,
             glm::vec3(dis(gen), dis(gen), dis(gen))
         );
     }
@@ -99,7 +99,7 @@ int main()
         world.update(delta_time);
 
         // Optional: Print the position of the first entity to show progress
-        auto& first_entity_transform = world.get_component<ecs::component::TransformComponent>(entities[0]);
+        auto& first_entity_transform = world.get_component<ecs::components::TransformComponent>(entities[0]);
         std::cout << "\rElapsed: " << elapsed_time.count() << "s, Entity " << entities[0]
                   << " Position: (" << first_entity_transform.position.x << ", "
                   << first_entity_transform.position.y << ", "
@@ -110,9 +110,9 @@ int main()
     
     // Print final positions of the first 5 entities
     std::cout << "\nFinal Positions:" << std::endl;
-    for (int i = 0; i < 5; ++i)
+    for (int i = 0; i < 500; ++i)
     {
-        auto& transform = world.get_component<ecs::component::TransformComponent>(entities[i]);
+        auto& transform = world.get_component<ecs::components::TransformComponent>(entities[i]);
         std::cout << "Entity " << entities[i] << " Position: ("
             << transform.position.x << ", "
             << transform.position.y << ", "

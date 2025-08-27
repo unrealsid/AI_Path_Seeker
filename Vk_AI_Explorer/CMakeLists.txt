@@ -52,6 +52,11 @@ file(GLOB_RECURSE SRC_FILES
 # ------------------------------------------------------
 add_executable(Vk_AI_Explorer ${SRC_FILES}) # Executable name is based on project name
 
+# Make the "Vk_AI_Explorer" source folder an include root
+target_include_directories(Vk_AI_Explorer PUBLIC
+    ${SRC_DIR}   # this is ${CMAKE_CURRENT_SOURCE_DIR}/Vk_AI_Explorer
+)
+
 # Include the generated file in the project
 include_directories(${CMAKE_BINARY_DIR})
 

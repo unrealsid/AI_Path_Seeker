@@ -52,6 +52,6 @@ namespace ecs::core
         // Map from system type name to its signature
         std::unordered_map<const char*, Signature> system_signatures;
         // Map from system type name to the system instance
-        std::unordered_map<const char*, std::unique_ptr<ecs::interface::ISystem>> systems;
+        std::unordered_map<const char*, std::unique_ptr<ecs::interfaces::ISystem>> systems;
     };
 }

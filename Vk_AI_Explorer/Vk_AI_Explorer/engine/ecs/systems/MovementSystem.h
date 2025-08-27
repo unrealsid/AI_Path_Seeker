@@ -1,12 +1,12 @@
 ﻿#pragma once
-#include "../interfaces/ISystem.h"
-#include "../core/World.hpp"
-#include "../components/TransformComponent.h"
-#include "../components/VelocityComponent.h"
+#include "engine/ecs/interfaces/ISystem.h"
+#include "engine/ecs/core/World.hpp"
+#include "engine/ecs/components/TransformComponent.h"
+#include "engine/ecs/components/VelocityComponent.h"
 
-namespace ecs::system
+namespace ecs::systems
 {
-    class MovementSystem : public interface::ISystem
+    class MovementSystem : public interfaces::ISystem
     {
     public:
         void update(core::World& world, double delta_time) override
@@ -15,8 +15,8 @@ namespace ecs::system
             for (auto const& entity : entities)
             {
                 // Retrieve the Transform and Velocity components for the entity
-                auto& transform = world.get_component<component::TransformComponent>(entity);
-                auto& velocity = world.get_component<component::VelocityComponent>(entity);
+                auto& transform = world.get_component<components::TransformComponent>(entity);
+                auto& velocity = world.get_component<components::VelocityComponent>(entity);
 
                 // Update the position
                 transform.position += velocity.value * (float) delta_time;

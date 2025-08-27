@@ -1,5 +1,5 @@
 ﻿#include "SystemManager.h"
-#include "../Interfaces/ISystem.h"
+#include "engine/ecs/interfaces/ISystem.h"
 
 void ecs::core::SystemManager::entity_signature_changed(EntityID entity, Signature entity_signature)
 {

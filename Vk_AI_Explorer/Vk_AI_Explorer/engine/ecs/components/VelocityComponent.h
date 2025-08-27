@@ -2,7 +2,7 @@
 
 #include <glm/glm.hpp>
 
-namespace ecs::component
+namespace ecs::components
 {
     struct VelocityComponent
     {

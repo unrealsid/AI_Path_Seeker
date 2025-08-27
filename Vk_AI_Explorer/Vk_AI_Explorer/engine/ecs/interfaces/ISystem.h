@@ -7,7 +7,7 @@ namespace ecs::core
     class World;
 }
 
-namespace ecs::interface
+namespace ecs::interfaces
 {
     class ISystem
     {

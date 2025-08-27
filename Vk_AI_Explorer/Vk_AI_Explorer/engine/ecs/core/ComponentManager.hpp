@@ -88,7 +88,7 @@ namespace ecs::core
         // Map from component type name (string) to its unique numeric ID
         std::unordered_map<const char*, ComponentTypeID> component_types{};
         // Map from component type name (string) to its data pool
-        std::unordered_map<const char*, std::unique_ptr<ecs::interface::IComponentPool>> component_pools{};
+        std::unordered_map<const char*, std::unique_ptr<ecs::interfaces::IComponentPool>> component_pools{};
         // The next available component ID to be assigned
         ComponentTypeID next_component_type_id = 0;
     };

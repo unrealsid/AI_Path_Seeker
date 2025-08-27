@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "ECSTypes.h"
-#include "../interfaces/IComponentPool.h"
+#include "engine/ecs/interfaces/IComponentPool.h"
 #include <vector>
 #include <unordered_map>
 #include <memory>
@@ -11,7 +11,7 @@ namespace ecs::core
     // A data structure that stores all components of a single type.
     // It uses a packed array for cache efficiency.
     template<typename T>
-    class ComponentPool : public interface::IComponentPool
+    class ComponentPool : public interfaces::IComponentPool
     {
     public:
         // Adds a component for a given entity.
